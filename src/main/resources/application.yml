@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+
+logging:
+  level:
+    kr:
+      co:
+        rland:
+          web:
+            repository: DEBUG
