@@ -8,6 +8,18 @@
     <link href="/css/components/menu/menu-filter.css" rel="stylesheet" type="text/css"/>
     <link href="/css/components/menu/basket-status.css" rel="stylesheet" type="text/css"/>
     <link href="/css/components/menu/list.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/menu/list2.js" defer></script>
+    <!-- defer : 윈도우(html문서)로드된이후에 스크립트 불러오기 설정-->
+    <script>
+        Array.prototype.ahh = function () {
+            console.log("ohohoh");
+        };
+
+        var ar = [1,2,3,4,5];
+        ar.ahh();
+        ar.forEach(n => console.log(n));
+    </script>
+
 </head>
 <body>
 <!--    header 부분-->
@@ -27,28 +39,24 @@
                                         href="list"
                                         th:class="${{param.c}}==null ? 'current'">전체메뉴</a>
                             </li>
-                            <li th:each="category : ${categoryList}">
-                                <a
-                                        class="d:none md:d:inline current"
-                                        href="?c=1"
-                                        th:class="${{param.c}}==${category.id}? 'current'"
-                                        th:href="@{./list(c=${category.id})}"
-                                        th:text="${category.name}">커피</a>
+                            <li class="category-bar"
+                                    th:each="category : ${categoryList}">
+                                <a class="d:none md:d:inline current category-button"
+                                   href="?c=1"
+                                    th:data-id="${category.id}"
+                                    th:class="${{param.c}}==${category.id}? 'current'"
+                                    th:href="@{./list(c=${category.id})}"
+                                    th:text="${category.name}">커피</a>
                             </li>
                         </ul>
                     </nav>
-                    <section class="query-filter">
+                    <section class="query-filter" id="query-form">
                         <h1 class="d:none">이름 검색 폼</h1>
                         <form action="list" method="get">
                             <fieldset>
                                 <legend class="d:none">이름 검색</legend>
-                                <input type="text" placeholder="메뉴 검색" name="q" />
-                                <input
-                                        type="hidden"
-                                        name="c"
-                                        value=""
-                                        th:value="${param.c}"
-                                />
+                                <input class="query-input" type="text" placeholder="메뉴 검색" name="q" />
+                                <input type="hidden" name="c" value="" th:value="${param.c}"/>
                                 <button class="icon icon-find">검색</button>
                             </fieldset>
                         </form>
@@ -57,10 +65,10 @@
 
                 <!-- ------------------------------------------------------ -->
 
-                <section class="menu-card-list">
+                <section class="menu-card-list" id="menu-card-list">
                     <h1 class="d:none">메뉴 목록</h1>
                     <div class="content">
-                        <section class="menu-card" th:each="menu : ${list}">
+                        <section class="menu-card" id="menu-card" th:each="menu : ${list}">
                             <h1>
                                 <a class="heading-3"
                                    href="detail.html"
@@ -71,7 +79,7 @@
                             </h1>
                             <h2 class="heading-2 font-weight:normal color:base-5" th:text="${menu.engName}">
                                 Cafe Latte
-                            </h2>
+                            </h2>₩
                             <div class="price-block d:flex align-items:flex-end">
                                 <span class="font-weight:bold" th:text="${menu.price}">4,500</span>원
                                 <span class="soldout-msg ml:auto mr:auto md:d:none">SOLD OUT</span>
@@ -87,14 +95,23 @@
                                 <span
                                         class="font-weight:bold ml:1"
                                         th:text="${menu.likeCount}"
-                                >2
+                                >
                                 </span>
                             </div>
-                            <div class="pay-block d:flex">
+                            <div class="pay-block d:flex" id="setPoket">
 
                                 <form action="/cart/add-menu" method="post">
                                     <input type="hidden" name="id" th:value="${menu.id}">
-                                    <button class="icon md:icon:none icon-cart icon-color:base-0 color:base-0 btn-type:icon btn-cart md:btn-type:text">담기</button>
+                                    <button class="icon md:icon:none icon-cart icon-color:base-0 color:base-0 btn-type:icon btn-cart md:btn-type:text"
+                                            th:data-id="${menu.id}"
+                                            th:data-korname="${menu.korName}"
+                                            th:data-engname="${menu.engName}"
+                                            th:data-price="${menu.price}"
+                                            th:data-img="${menu.img}"
+                                            th:data-regdate="${menu.regDate}">
+                                        담기
+
+                                    </button>
                                 </form>
                                 <a class="icon md:icon:none icon-card icon-color:base-0 color:base-0 btn-type:icon btn-card md:btn-type:text"
                                    href="">주문하기</a>
@@ -118,7 +135,7 @@
                      ">
                 <li>
 <!--                    <span th:if="${page} lt 6">이전</span>-->
-                    <a th:if="${page} ge 6"
+                    <a th:if="${page} ge 6"`
                        href="list?p=1"
                     th:href="@{list(p=${startnum}-1)}">이전</a>
                 </li>
@@ -136,21 +153,22 @@
                 </li>
             </ul>
         </section>
+        <script>console.log("hello")</script>
+        <section class="basket-status">
+            <h1 class="d:none">Basket Bar</h1>
+            <dl class="ph:3">
+                <dt>금액</dt>
+                <dd class="ml:2" th:text="${cartTotalPrice+'원'}">5,000원</dd>
+                <dt class="d:none">수량</dt>
+                <dd class="ml:auto">
+                    <a href="/basket/list"
+                       class="icon icon-basket_outline icon-color:base-0 icon-size:4 icon-text-with" th:text="${cartCount}"                    >1</a>"
+                </dd>
+            </dl>
+        </section>
 </main>
 
-<section class="basket-status">
-    <h1 class="d:none">Basket Bar</h1>
-    <dl class="ph:3">
-        <dt>금액</dt>
-        <dd class="ml:2">5,000원</dd>
-        <dt class="d:none">수량</dt>
-        <dd class="ml:auto">
-            <a href="/basket/list"
-               class="icon icon-basket_outline icon-color:base-0 icon-size:4 icon-text-with"
-            >1</a>
-        </dd>
-    </dl>
-</section>
+
 <!--footer 부분-->
 <div th:replace="~{inc/footer}">123</div>
 </body>

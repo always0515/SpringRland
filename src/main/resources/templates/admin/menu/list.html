@@ -1,51 +1,52 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="inc/layout">
+      layout:decorate="inc/layout"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/components/menu/card.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/components/menu/menu-filter.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/components/menu/basket-status.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/components/menu/list.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.32/dist/style.css" />
-    <title>Rland...</title>
+    <title>Document</title>
 </head>
 <body>
-    <main layout:fragment="main">
-        <section class="n-container mx:auto border">
-            <header>
-                <h1 class="font-size:7 fw:3 deco icon:trophy">메뉴 목록</h1>
-                <div>
-                    <button class="n-btn n-btn-size:4">추가</button>
-                </div>
-            </header>
-        </section>
-        <section>
-            <form>
-                <label>메뉴검색
-                    <input class="border " type="text">
-                </label>
-                <div>
-                    <button>검색</button>
-                    <button>초기화</button>
-                </div>
-            </form>
+<main layout:fragment="main">
+    <section>
+        <header class="d:flex">
+            <h1 class="ml:2 fw:3
+                            fs:5
+                            deco
+                            deco-size:5
+                            icon:trophy " id="a1">메뉴 목록</h1>
+            <div><a class="n-btn n-btn-size:1 m:3 ml:4" href="reg">추가</a></div>
+        </header>
 
-        </section>
-
-        <section class="n-container mx:auto border ">
+        <section class="bg-color:base-4 p:2 border-radius:3">
             <h1 class="d:none">카테고리 목록</h1>
-            <ul>
+            <ul class="n-list n-tag-list ml:2">
                 <li><a href="">커피</a></li>
-                <li><a href="">쿠키</a></li>
+                <li><a href="" class="color:main-1">쿠키</a></li>
                 <li><a href="">과일청</a></li>
-                <li><a href="">샌드위치</a></li>
                 <li><a href="">샌드위치</a></li>
             </ul>
         </section>
-    </main>
+
+        <section>
+            <h1 class="d:none">메뉴 검색폼</h1>
+            <form class="n-form">
+                <div>
+                    <label class="flex-direction:row align-items:center">
+                        <span class="font-weight:3 color:base-7 w:1">메뉴명</span>
+                        <input class="n-textbox">
+                    </label>
+                </div>
+                <div>
+                    <button class="n-btn n-btn-type:outline deco icon:magnifying_glass">검색</button>
+                    <button class="n-btn n-btn-type:outline">초기화</button>
+                </div>
+            </form>
+        </section>
+
+    </section>
+</main>
 </body>
 </html>

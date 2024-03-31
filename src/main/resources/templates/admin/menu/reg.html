@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="inc/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .n-container{
+            --container-max-width: 900px;
+        }
+        input:invalid{
+            background-color: red;
+        }
+        /*.n-form>div::after{*/
+        /*    content: "음하하하";*/
+        /*    display: inline-block;*/
+        /*    width: 50px;*/
+        /*    height: 50px;*/
+        /*    opacity: 0;*/
+        /*    transition: opacity 1s;*/
+        /*}*/
+         /*가상의 슈도클래스를 만들어서  유효성 검사 후 결과를 표시해주려는 의도*/
+              /*기본->값의 유효성이 틀리게나오면 밑에 has(input:invalid)를 표시 */
+
+        /*.n-form>div:has(input:invalid):after{*/
+        /*    opacity: 1;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<main layout:fragment="main" class="n-container mx:auto">
+    <header class="d:flex ai:center">
+        <h1 class="n-font n-font:heading-3 fw:3 deco deco-size:3 icon:stack">메뉴 목록</h1>
+        <div><button class="n-btn n-btn-type:filled">취소</button></div>
+    </header>
+    <section>
+        <h1 class="d:none">메뉴 등록 폼</h1>
+        <form action="reg" method="post" class="n-form md:n-field-label-position:left"
+                enctype="multipart/form-data">
+            <div>
+                <label>
+                    <span>한글명</span>
+                    <input type="text"
+                           name="korName"
+                           placeholder="placeholder"
+                           autocomplete="off"
+                           autofocus
+                           required minlength="3"/>
+<!--                           list="menu-list"-->
+<!--                    <datalist id="menu-list">-->
+<!--                        <option>아메리카노1</option>-->
+<!--                        <option>아메리카노2</option>-->
+<!--                        <option>아메리카노3</option>-->
+<!--                    </datalist>-->
+                </label>
+            </div>
+            <div>
+                <label>P
+                    <span>영문명</span>
+                    <input type="text" name="engName" placeholder="placeholder"/>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>이미지</span>
+                    <input type="file" name="img-file"/>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>가격</span>
+                    <input type="number" name="price" placeholder="placeholder"/>
+                </label>
+            </div>
+            <div>
+                <button class="n-btn ">등록</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>
